@@ -9,7 +9,6 @@
 from flask import Blueprint, request
 
 from flaskr.data.mockdata import MOCK_DATA, DEFAULT_ERR_DATA
-from flaskr.data.envars import MAPS_API_KEY
 
 # Demo processing function (pretend the request is processed into data for Maps)
 def demo_serve_data(args: dict=None):
@@ -19,9 +18,9 @@ def demo_serve_data(args: dict=None):
     action = args['action']
 
     if action == 0:  # 0: get car collision risks
-        return {'ok': True, 'key': MAPS_API_KEY, 'data': MOCK_DATA}
+        return {'ok': True, 'data': MOCK_DATA}
     elif action == 1:  # 1: get alternate route?
-        return {'ok': True, 'key': MAPS_API_KEY, 'data': None}
+        return {'ok': True, 'data': None}
     else:
         return DEFAULT_ERR_DATA
 
