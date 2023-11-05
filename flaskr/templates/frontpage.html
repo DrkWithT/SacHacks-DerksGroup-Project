@@ -30,91 +30,90 @@
         </div>
     </main>
     <!-- JS -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAe3QiR5rcY96oV06WQ9PZjWW1qLgc5oX8"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAe3QiR5rcY96oV06WQ9PZjWW1qLgc5oX8&callback=initMap"></script>
     <script>
-        (function () {
-            /**
-             * @param {object} data The loaded JSON from fetch.
-             */
-            function initMap(data) {
-                const load_ok = data.ok || false
+        /**
+         * @param {object} data The loaded JSON from fetch.
+         */
+        function setupMap(data) {
+            var load_ok = data.ok || false
 
-                if (!load_ok)
-                {
-                    console.error(`Fetch error: ${data.msg}`);
-                    return;
-                }
-
-                const loaded_bits = data.data || null;
-
-                if (!loaded_bits)
-                {
-                    console.error(`Data err: found null.`);
-                    return;
-                }
-
-                const loaded_risk_spot1 = {
-                    lat: loaded_bits[0].lat,
-                    lng: loaded_bits[0].lng
-                };
-
-                const loaded_risk_spot2 = {
-                    lat: loaded_bits[1].lat,
-                    lng: loaded_bits[1].lng
-                }
-
-                // Collision hotspot map
-                const map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: 42.7128, lng: -74.0060 },
-                    zoom: 7
-                });
-
-                // Route map?
-                const map1 = new google.maps.Map(document.getElementById('map1'), {
-                    center: { lat: 42.7128, lng: -74.0060 },
-                    zoom: 7
-                });
-
-                const bad_spot1 = google.maps.AdvancedMarkerElement({
-                    map: map,
-                    position: loaded_risk_spot1,
-                    title: 'Collision Hotspot 1'
-                });
-
-                const bad_spot2 = google.maps.AdvancedMarkerElement({
-                    map: map,
-                    position: loaded_risk_spot2,
-                    title: 'Collision Hotspot 2'
-                });
+            if (!load_ok) {
+                console.error(`Fetch error: ${data.msg}`);
+                return;
             }
 
-            /**
-             * @param {(data: object) => void} mapCallback The function to callback by the loaded data.
-             */
-            function loadAppMapData(mapCallback) {
-                // Load risky locations.
-                fetch('/appapi/load', {
-                    method: "GET",
-                    cache: "no-cache",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({action: 0})
-                })
-                .then(async (res) => {
-                    const res_data = await res.json();
-                    mapCallback(res_data);
-                })
-                .catch((err) => {
-                    console.error(`${err}`);
-                });
+            var loaded_bits = data.data || null;
 
-                // Load other routes if any?
-                // TODO
+            if (!loaded_bits) {
+                console.error(`Data err: found null.`);
+                return;
             }
 
-            loadAppMapData(initMap)
-        })();
+            var loaded_risk_spot1 = {
+                lat: loaded_bits[0].lat,
+                lng: loaded_bits[0].lng
+            };
+
+            var loaded_risk_spot2 = {
+                lat: loaded_bits[1].lat,
+                lng: loaded_bits[1].lng
+            }
+
+            // Collision hotspot map
+            var map1 = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 42.7128, lng: -74.0060 },
+                zoom: 7
+            });
+
+            // Route map?
+            var map2 = new google.maps.Map(document.getElementById('map1'), {
+                center: { lat: 42.7128, lng: -74.0060 },
+                zoom: 7
+            });
+
+            var bad_spot1 = new google.maps.Marker({
+                position: loaded_risk_spot1,
+                title: 'Collision Hotspot 1'
+            });
+
+            var bad_spot2 = new google.maps.Marker({
+                position: loaded_risk_spot2,
+                title: 'Collision Hotspot 2'
+            });
+
+            bad_spot1.setMap(map1);
+            bad_spot2.setMap(map1);
+        }
+
+        /**
+         * @param {(data: object) => void} mapCallback The function to callback by the loaded data.
+         */
+        function loadAppMapData(mapCallback) {
+            // Load risky locations.
+            fetch('/appapi/load', {
+                method: "POST",
+                cache: "no-cache",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: 0 })
+            })
+            .then(async (res) => {
+                const res_data = await res.json();
+                mapCallback(res_data);
+            })
+            .catch((err) => {
+                console.error(`${err}`);
+            });
+
+            // Load other routes if any?
+            // TODO
+        }
+
+        function initMap() {
+            loadAppMapData(setupMap);
+        }
     </script>
 </body>
 

@@ -26,15 +26,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.errorhandler(404)
-    def handle_wrong_route(error):
-        return render_template('oops.html', page_title='Oops Page')
-
     # NOTE This requires the HTML pages to be in the templates folder. Dynamic data can be inserted with Jinja template syntax from the Flask docs. 
     app.register_blueprint(page_router)
 
     # NOTE This requires AJAX on the frontend to send request to the right route URL... See routes.py
     app.register_blueprint(ajax_router)
+
+    @app.errorhandler(404)
+    def handle_wrong_route(error):
+        return render_template('oops.html', page_title='Oops Page')
 
     # Export app object to runner.
     return app

@@ -28,7 +28,7 @@ def demo_serve_data(args: dict=None):
 ajax_router = Blueprint('ajax_router', __name__)
 
 # Handle requests asking for location & risk points.
-@ajax_router.route('/appapi/load')
+@ajax_router.route('/appapi/load', methods=['POST'])
 def handle_risks_req():
     req_method = request.method
     req_json = None
@@ -36,13 +36,13 @@ def handle_risks_req():
     if request.is_json:
         req_json = request.get_json()
 
-    if req_method == 'GET':
+    if req_method == 'POST':
         return demo_serve_data(req_json)
 
     return DEFAULT_ERR_DATA
 
 # Handle requests asking for a new route given car accidents.
-@ajax_router.route('/appapi/trip')
+@ajax_router.route('/appapi/trip', methods=['POST'])
 def handle_trip_req():
     req_method = request.method
     req_json = None
@@ -50,7 +50,7 @@ def handle_trip_req():
     if request.is_json:
         req_json = request.get_json()
 
-    if req_method == 'GET':
+    if req_method == 'POST':
         return demo_serve_data(req_json)
 
     return DEFAULT_ERR_DATA
