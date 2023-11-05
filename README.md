@@ -1,7 +1,7 @@
 # SacHacks 2023 Project: "Derk's Group"
 
 ### Brief
-This will be our project for the SacHacks 2023 hackathon with IBM as the event sponsor. In this project, we will create a road trip planner web application powered by a ML model running on an IBM mainframe computer for the event. The trip planner will take into account factors like trip length, stops, and collisions when generating a road trip plan.
+This will be our project for the SacHacks 2023 hackathon with IBM as the event sponsor. In this project, we will create a city driving advisory web application powered by a ML model running on an IBM mainframe computer for the event. The trip planner will take into account factors like traffic flow and collisions.
 
 ### Dev. Notes
  - Update README with general notes.
