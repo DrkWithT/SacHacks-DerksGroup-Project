@@ -3,6 +3,8 @@
     Stores hardcoded data generated from our ML model about collision risk. If our app were extended, we would use ssh between this Flask application and the remote model to link both.
 """
 
+from flaskr.data.envars import MAPS_API_KEY
+
 # Tiny demo sample data: 2 risky locations in the NY metro area.
 MOCK_DATA = [
     {
@@ -18,4 +20,4 @@ MOCK_DATA = [
 ]
 
 # Placeholder data sent on bad requests such as invalid action code or not JSON.
-DEFAULT_ERR_DATA = {'ok': False, 'msg': 'Invalid request.'}
+DEFAULT_ERR_DATA = {'ok': False, 'key': MAPS_API_KEY, 'msg': 'Invalid request.'}
