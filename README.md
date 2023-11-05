@@ -11,11 +11,10 @@ This will be our project for the SacHacks 2023 hackathon with IBM as the event s
     - Normal: `flask --app flaskr run`
     - Debug: `flask --app flaskr run --debug` only if `DEBUG = True` is in the config.
 
-### Frontend
- - TBD
-
-### Backend
- - TBD
+### To Do:
+ - ~~Integrate static data from MLM into the Flask app.~~
+ - ~~Get Google Maps API Key~~
+ - ~~Refactor map JS to accept server JSON as arguments.~~
 
 ### References: Frontend
  - [Sample Palette 1](https://colorpalettes.net/color-palette-155/)
