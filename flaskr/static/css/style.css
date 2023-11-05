@@ -23,10 +23,12 @@ header {
     display: block;
     background-color: #1f101a;
     color: goldenrod;
-    padding: 8px;
+    padding: 12px 36px 12px 36px;
     margin: 0;
+    box-shadow: 0 8px 6px silver;
 }
 
+/* Bigger Screens! */
 @media(min-width: 600px) {
     main#scrollable {
         margin-top: 80px;
@@ -51,6 +53,7 @@ header {
     }
 }
 
+/* Smaller screens... */
 @media(max-width: 599px) {
     main#scrollable {
         margin-top: 80px;
